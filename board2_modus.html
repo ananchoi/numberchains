@@ -1,0 +1,146 @@
+<!-- mean/board2_mean.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Board 2 - Mean</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background: url('../assets/bgboard1.png');
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: white;
+    }
+
+    h2 {
+      margin-bottom: 150px;
+      font-size: 20px;
+      display: flex;
+      margin-left: 75%;
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 140px);
+      gap: 20px;
+      margin-bottom: 2rem;
+    }
+
+    .box {
+      width: 140px;
+      height: 100px;
+      background-color: #073b4c;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      clip-path: polygon(
+        15% 0%, 85% 0%,
+        100% 15%, 100% 85%,
+        85% 100%, 15% 100%,
+        0% 85%, 0% 15%
+      );
+      transition: background-color 0.3s ease;
+    }
+
+    .box:hover {
+      background-color: #118ab2;
+    }
+
+    .back-button {
+      margin-top: 20px;
+    
+      color: #ffeb3b;
+      cursor: pointer;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px black;
+    }
+  </style>
+</head>
+<body>
+  <h2>Board 2 - Modus</h2>
+  <div class="grid">
+    <div class="box" onclick="checkAnswer('I')">I = ?</div>
+    <div class="box" onclick="checkAnswer('J')">J = ?</div>
+    <div class="box" onclick="checkAnswer('K')">K = ?</div>
+    <div class="box" onclick="checkAnswer('L')">L = ?</div>
+    <div class="box" onclick="checkAnswer('M')">M = ?</div>
+    <div class="box" onclick="checkAnswer('N')">N = ?</div>
+  </div>
+  <div class="back-button" onclick="location.href='modus1.html'">← Kembali ke Pilihan Board</div>
+
+  <script>
+    const correctAnswers = {
+      I: 7,
+      J: 24,
+      K: 51,
+      L: 50,
+      M: 28,
+      N: 9
+    };
+
+    function checkAnswer(letter) {
+      Swal.fire({
+        title: `Kotak ${letter}`,
+        input: 'number',
+        inputLabel: 'Masukkan jawaban Anda:',
+        inputPlaceholder: 'Jawaban dalam angka',
+        showCancelButton: true,
+        confirmButtonText: 'Submit',
+        preConfirm: (value) => {
+          if (!value) {
+            Swal.showValidationMessage('Input tidak boleh kosong');
+          }
+          return value;
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const inputValue = parseFloat(result.value);
+          if (inputValue === correctAnswers[letter]) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Jawaban Benar!',
+              input: 'text',
+              inputLabel: 'Masukkan nama tim:',
+              inputPlaceholder: 'Nama tim Anda',
+              confirmButtonText: 'OK'
+            }).then((nameResult) => {
+              if (nameResult.value) {
+                // Simpan nama tim dan tugas ke localStorage
+                let list = JSON.parse(localStorage.getItem("kelompokListModus") || "[]");
+                list.push({
+                  nama: nameResult.value,
+                  tugas: letter // Menyimpan tugas yang berhasil dijawab
+                });
+                localStorage.setItem("kelompokListModus", JSON.stringify(list));
+              }
+              window.location.href = 'modus1.html'; // Kembali ke median1.html
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Jawaban Salah!',
+              text: 'Silakan coba lagi atau kembali ke menu.',
+              confirmButtonText: 'Kembali'
+            });
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

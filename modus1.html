@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modus - Board Pilihan</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background: url('../assets/board.png') no-repeat center center fixed;
+      background-size: 100vw 100vh;
+      height: 100%;
+      overflow: hidden;
+      color: white;
+    }
+
+    main {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 2rem;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    .back-button {
+      margin-right: 80%;
+      color: #ffeb3b;
+      cursor: pointer;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px black;
+    }
+
+    .board-buttons {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      height: 65px;
+      top: 155px;
+    }
+
+    .nilai-button {
+  margin-top: 350px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  color: #ffeb3b;
+  background: #03303f; 
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px black;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+}
+
+.nilai-button:hover {
+  background: #03303f;
+  transform: scale(1.05);
+}
+
+    .board-buttons button {
+      position: absolute;
+      top: 80%;
+      transform: translateY(-50%);
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      background: linear-gradient(145deg, #042631, #073b4c);
+      border: none;
+      border-radius: 20px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .board-buttons button:hover {
+      transform: translateY(-50%) scale(1.05);
+      background: #195a70;
+    }
+
+    .board1-btn {
+      left: 5%;
+     
+    }
+
+    .board2-btn {
+      right: 5%;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>UKURAN PEMUSATAN DATA(MODUS)</h1>
+      <div class="back-button" onclick="location.href='../index.html'">← Kembali ke Menu Utama</div>
+      
+    </div>
+
+    <div class="board-buttons">
+      <button class="board1-btn" onclick="location.href='board1_modus.html'">Board 1</button>
+      <button class="board2-btn" onclick="location.href='board2_modus.html'">Board 2</button>
+    </div>
+    <div class="nilai-button" onclick="location.href='nilai_modus.html'">
+   🔍 Daftar Kelompok Berhasil
+    </div>
+  </main>
+</body>
+</html>

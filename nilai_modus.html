@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daftar Nilai Kelompok</title>
+  <style>
+     body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background: url('../assets/bgtabel.png');
+      background-size: cover;
+   
+      min-height: 100vh;
+      color: white;
+    }
+
+    main {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+      box-sizing: border-box;
+    }
+
+    .back-button {
+        margin-right: 80%;
+ 
+  margin-bottom: 1%;
+  color: #ffeb3b;
+  cursor: pointer;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px black;
+}
+
+
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      text-shadow: 1px 1px 4px black;
+      text-align: center;
+    }
+
+    .table-wrapper {
+      width: 100%;
+    
+      height: 380px; /* pas untuk header + 5 baris */
+      overflow-y: auto;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      backdrop-filter: blur(6px);
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
+      overflow: hidden;
+      color: white;
+    }
+
+    th, td {
+      padding: 14px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
+    }
+
+    th {
+      background-color: rgba(0,0,0,0.5);
+      font-weight: 600;
+    }
+
+    td button {
+      font-size: 1.2rem;
+      background: none;
+      border: none;
+      color: red;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    td button:hover {
+      transform: scale(1.2);
+    }
+
+    /* Optional: Hover effect on rows */
+    tbody tr:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    
+
+    <h2>Daftar Kelompok Berhasil</h2>
+<div class="back-button" onclick="location.href='modus1.html'">← Kembali ke Menu Utama</div>
+    <div class="table-wrapper">
+      <table id="kelompokTable">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama Kelompok</th>
+            <th>Tugas</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    function loadKelompok() {
+      const tableBody = document.querySelector("#kelompokTable tbody");
+      tableBody.innerHTML = "";
+      const data = JSON.parse(localStorage.getItem("kelompokListModus") || "[]");
+
+      if (data.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='4'>Tidak ada data</td></tr>";
+        return;
+      }
+
+      data.forEach((entry, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${entry.nama}</td>
+          <td>${entry.tugas}</td>
+          <td><button onclick="hapusItem(${index})">🗑️</button></td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function hapusItem(index) {
+      const data = JSON.parse(localStorage.getItem("kelompokListModus") || "[]");
+      data.splice(index, 1);
+      localStorage.setItem("kelompokListModus", JSON.stringify(data));
+      loadKelompok();
+    }
+
+    window.onload = loadKelompok;
+  </script>
+</body>
+</html>
